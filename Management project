@@ -1,0 +1,125 @@
+#include <iostream>		// cin, endl, cout
+#include <iomanip>		// setprecision, setw
+#include <string.h>		// Provides functions for C-styled strings
+#include <string>		// provides methods dealing with strings such as string lenghts, etc
+using namespace std;	// dont need to use prefix std, examples: std::cout
+
+
+// Function named "Header" with void return type and no arguments passing through
+void Header()
+{
+	cout << setw(20) << "Description" << setw(20)
+		<< "Category" << setw(20) << "Price" << setw(20)
+		<< "Qauntity" << setw(20) << "Ext. Price" << endl;
+
+	cout << setw(20) << "_________" << setw(20)
+		<< "________" << setw(20) << "_____" << setw(20)
+		<< "________" << setw(20) << "_________" << endl;
+
+}
+// function named "displayData" with void return type and multiple arguments passing through. This will just display all the data
+void displayData(string Description[],string Category[], int Quantity[], double Price[])
+{
+	Header(); //The function "Header" is called from above, no parameters passed
+	int i = 0;
+	double extPrice = 0.00;
+	while (i < 10)				//While loop, with a stop value of 10 because there are 10 elements in the array. Elements are 0-9 so it can not be (i<=10)
+	{
+		extPrice = Quantity[i] * Price[i];
+
+		cout << setw(20) << Description[i] << setw(20) << Category[i] << setw(20)
+			<< fixed << setprecision(2) << Price[i] << setw(16) << Quantity[i]
+			<< setw(23) << fixed << setprecision(2) << extPrice << endl;
+		i++;
+	}
+}
+
+// Function named "filterCategory" to sort by category with no arguments passing through. This will filter the data by category 
+void filterCategory()
+{
+string Description[] = {"Halo", "Gears of War", "Call of Duty", "Escape from Tarkov", "Goosebumps", "Harry Potter", 
+"Rings", "The Dark Knight", "Alien", "Black Hawk Down"};
+string Category[] = {"Xbox Game", "Xbox Game", "Xbox Game", "Computer game", "Book", "Book", "Movie", "Movie", "Movie", "Movie"};
+
+int Quantity[] = { 6, 5, 12, 1, 30, 9, 3, 3, 6, 1 };
+double Price[] = { 60.00, 50.00, 70.00, 35.00, 35.00, 100.00, 20.00, 25.00, 45.00, 15.00};
+	
+Header(); //The function "Header" is called from above, no parameters passed
+int i = 0;
+double extPrice = 0.00;
+while (i < 10)	//While loop, with a stop value of 10 because there are 10 elements in the array. Elements are 0-9 so it can not be (i<=10)
+{
+	extPrice = Quantity[i] * Price[i];
+
+	cout << setw(20) << Description[i] << setw(20) << Category[i] << setw(20)
+		<< fixed << setprecision(2) << Price[i] << setw(16) << Quantity[i]
+		<< setw(23) << fixed << setprecision(2) << extPrice << endl;
+	i++;
+}
+
+}
+
+void filterPrice() {
+	string Description[] = { "Harry Potter", "Call of Duty", "Halo", "Gears of War", "Alien", "Escape from Tarkov", "Goosebumps", "The Dark Knight", "Rings", "Black Hawk Down"};
+	string Category[] = { "Book", "Xbox Game", "Xbox Game", "Xbox game", "Movie", "Computer Game", "Book", "Movie", "Movie", "Movie" };
+
+	int Quantity[] = { 9, 12, 6, 5, 6, 1, 30, 3, 3, 1 };
+	double Price[] = { 100.00, 70.00, 60.00, 50.00, 45.00, 35.00, 35.00, 25.00, 20.00, 15.00 };
+	Header(); //The function "Header" is called from above, no parameters passed
+	int i = 0;
+	double extPrice = 0.00;
+	while (i < 10)				//While loop, with a stop value of 10 because there are 10 elements in the array. Elements are 0-9 so it can not be (i<=10)
+	{
+		extPrice = Quantity[i] * Price[i];
+
+		cout << setw(20) << Description[i] << setw(20) << Category[i] << setw(20)
+			<< fixed << setprecision(2) << Price[i] << setw(16) << Quantity[i]
+			<< setw(23) << fixed << setprecision(2) << extPrice << endl;
+		i++;
+	}
+}
+
+void footer(double Price[], int Quantity[]) 
+{
+	double totQuantity = 0.0;
+	double totPrice = 0.0;
+	double avgPrice = 0.0;
+	for (int i = 0; i < 10; i++)
+	{
+		totQuantity = totQuantity + Quantity[i];
+		totPrice = totPrice + (Price[i] * Quantity[i]);
+	}
+
+	avgPrice = totPrice / totQuantity;
+
+	cout << setw(39) << "Totals:" << setw(22) << totPrice << setw(17) << totQuantity << endl;
+	cout << setw(39) << "Average:" << setw(22) << avgPrice << endl;
+}
+
+int main() {
+
+	string Description[] = { "Halo", "Escape from Tarkov","Gears of War", "Goosebumps", "The Dark Knight", "Harry Potter", "Call of Duty", "Alien", "Black Hawk Down", "Rings" };
+	string Category[] = { "Xbox Game", "Computer Game", "Xbox Game", "Book", "Movie", "Book", "Xbox Game", "Movie", "Movie", "Movie" };
+
+	int Quantity[] = { 6, 1, 5, 30, 3, 9, 12, 6, 1, 3 };
+	double Price[] = { 60.00, 35.00, 50.00, 35.00, 25.00, 100.00, 70.00, 45.00, 15.00, 20.00 };
+
+	cout << "All data displayed without filters\n" << endl;
+	//called method "displayData" and 4 parameters are passed
+	displayData(Description, Category, Quantity, Price);
+
+	cout << endl;
+	footer(Price, Quantity);
+
+	cout << endl << "All data filtered by Category\n" << endl;
+	filterCategory();
+
+	cout << endl;
+	footer(Price, Quantity);
+
+	cout << endl << "Data filtered from highest to lowest\n" << endl;
+	filterPrice();
+
+	cout << endl;
+	footer(Price, Quantity);
+}
